@@ -92,12 +92,12 @@ export default class App extends Component {
 
             <Switch>
               <Route exact path="/" render={ () => <Redirect to="/sea" />} /> 
-              <Route path="/sea" render={ () => <PhotoContainer data={this.state.seaPhotos} isNav={true} navName={'sea'}/> } />              
-              <Route path="/mountain" render={ () => <PhotoContainer data={this.state.mountainPhotos} isNav={true} navName={'mountain'}/>} />              
-              <Route path="/waterfall" render={ () => <PhotoContainer data={this.state.waterfallPhotos} isNav={true} navName={'waterfall'}/>} />
+              <Route path="/sea" render={ () => <PhotoContainer data={this.state.seaPhotos} navName={'sea'}/> } />              
+              <Route path="/mountain" render={ () => <PhotoContainer data={this.state.mountainPhotos} navName={'mountain'}/>} />              
+              <Route path="/waterfall" render={ () => <PhotoContainer data={this.state.waterfallPhotos} navName={'waterfall'}/>} />
 
               {/* conditionally render a loading indicator for the search bar */}
-              { (this.state.isLoading) ? <p>Loading...</p> : <Route path="/search/:query" render={ ({match}) => <PhotoContainer data={this.state.currentPhotos} match={match.params.query} checkUrl={this.checkUrl}/>} isNav={false}/> }   
+              { (this.state.isLoading) ? <p>Loading...</p> : <Route path="/search/:query" render={ ({match}) => <PhotoContainer data={this.state.currentPhotos} match={match.params.query} checkUrl={this.checkUrl}/>} /> }   
 
               <Route component={PageNotFound} />      
             </Switch>
