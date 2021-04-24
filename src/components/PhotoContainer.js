@@ -37,7 +37,11 @@ import NotFound from './NotFound';
                   {title}
               </h2>
               <ul>
-                  {photos}
+                  {
+                    (props.isLoading)
+                    ? <h2>Loading...</h2>
+                    : photos
+                  }
               </ul>
           </div>
       ) 
