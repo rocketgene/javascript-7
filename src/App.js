@@ -1,6 +1,6 @@
 import apiKey from './config.js'
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Switch, Redirect, Navlink, Router, matchPath } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 
@@ -31,23 +31,20 @@ export default class App extends Component {
     } else {
       axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=sea&per_page=24&format=json&nojsoncallback=1`)
       .then(response => this.setState({ 
-        seaPhotos: response.data.photos.photo,
-        isLoading: false
+        seaPhotos: response.data.photos.photo
       }) )
       .catch(error => console.log('Error fetching and parsing data', error) );
       
   
       axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=mountain&per_page=24&format=json&nojsoncallback=1`)
       .then(response => this.setState({ 
-        mountainPhotos: response.data.photos.photo,
-        isLoading: false
+        mountainPhotos: response.data.photos.photo
       }) )
       .catch(error => console.log('Error fetching and parsing data', error) );
   
       axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=waterfall&per_page=24&format=json&nojsoncallback=1`)
       .then(response => this.setState({ 
-        waterfallPhotos: response.data.photos.photo,
-        isLoading: false 
+        waterfallPhotos: response.data.photos.photo
       }) )
       .catch(error => console.log('Error fetching and parsing data', error) );
     }
@@ -97,7 +94,7 @@ export default class App extends Component {
               <Route path="/waterfall" render={ () => <PhotoContainer data={this.state.waterfallPhotos} navName={'waterfall'}/>} />
 
               {/* conditionally render a loading indicator for the search bar */}
-              { (this.state.isLoading) ? <p>Loading...</p> : <Route path="/search/:query" render={ ({match}) => <PhotoContainer data={this.state.currentPhotos} match={match.params.query} checkUrl={this.checkUrl}/>} /> }   
+              <Route path="/search/:query" render={ ({match}) => <PhotoContainer data={this.state.currentPhotos} match={match.params.query} checkUrl={this.checkUrl} isLoading={this.state.isLoading}/>} />  
 
               <Route component={PageNotFound} />      
             </Switch>
